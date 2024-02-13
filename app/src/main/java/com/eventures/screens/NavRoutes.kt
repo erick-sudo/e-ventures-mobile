@@ -10,6 +10,7 @@ sealed class NavRoutes (
 ) {
     data object Home: NavRoutes("home", "Home")
     data object Loans: NavRoutes("loans", "Loans")
+    data object Notifications: NavRoutes("notification", "Notifications")
 }
 
 object UseNavigate {
