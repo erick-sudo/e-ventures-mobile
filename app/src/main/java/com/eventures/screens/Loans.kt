@@ -11,3 +11,8 @@ fun Loans(
 ) {
 
 }
+
+@Composable
+fun LoanItem() {
+
+}

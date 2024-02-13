@@ -26,5 +26,11 @@ fun ENavHost(
                 navHostController = navHostController
             )
         }
+
+        composable(NavRoutes.Notifications.route) {
+            Notifications(
+                navHostController = navHostController
+            )
+        }
     }
 }
