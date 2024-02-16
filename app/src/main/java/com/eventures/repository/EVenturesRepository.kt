@@ -19,6 +19,10 @@ class EVenturesRepository {
     ): AccessTokenResponse = API_INSTANCE
         .login(loginCredentials)
 
+    suspend fun <U> fetchUserInformation(
+        authorization: String
+    ): U = API_INSTANCE.fetchUserInformation(authorization)
+
     suspend fun clientRegistration(
         clientRegistrationPayload: Client
     ): ClientRegistrationResponse = API_INSTANCE
