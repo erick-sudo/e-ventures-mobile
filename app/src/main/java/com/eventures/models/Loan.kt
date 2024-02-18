@@ -8,6 +8,7 @@ data class Loan(
     @SerializedName("status") var status: LoanStatus = LoanStatus.Pending,
     @SerializedName("amount") var amount: Float,
     @SerializedName("repayment_interval") var repaymentInterval: ChronoUnit,
+    @SerializedName("repayment_duration") var repaymentDuration: Float = 1f,
     @SerializedName("first_repayment_date") var firstRepaymentDate: String,
     @SerializedName("interest_rate") var interestRate: Float,
     @SerializedName("type_of_interest") var typeOfInterest: InterestType,

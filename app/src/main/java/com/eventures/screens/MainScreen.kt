@@ -23,39 +23,41 @@ fun MainScreen(
     loginViewModel: LoginViewModel = viewModel()
 ) {
 
-    val loginUiState = loginViewModel.loginUiStateFlow.collectAsState()
+    val loginUiState by loginViewModel.loginUiStateFlow.collectAsState()
 
     val navHostController = rememberNavController()
 
-    val backStackEntry by navHostController.currentBackStackEntryAsState()
 
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar(
+    //val backStackEntry by navHostController.currentBackStackEntryAsState()
+
+    if(loginUiState.status > 0) {
+        Scaffold(
+            bottomBar = {
+                BottomNavigationBar(
+                    modifier = Modifier
+                        .padding(horizontal = 10.dp),
+                    navHostController = navHostController
+                )
+            }
+        ) { paddingValues ->
+            Column(
                 modifier = Modifier
-                    .padding(horizontal = 10.dp),
-                navHostController = navHostController
-            )
-        }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            Crossfade(targetState = loginUiState, label = "Login Ui state") { loginState ->
-                when(loginState.value.status) {
-                    1 -> ENavHost(
-                        navHostController
-                    )
-                    0 -> LandingPage(
-                        loginViewModel = loginViewModel
-                    )
-                    -1 -> Login(
-                        loginViewModel = loginViewModel
-                    )
-                }
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                ENavHost(
+                    navHostController,
+                    loginViewModel
+                )
             }
         }
+    } else if(loginUiState.status == 0) {
+        LandingPage(
+            loginViewModel = loginViewModel
+        )
+    } else {
+        Login(
+            loginViewModel = loginViewModel
+        )
     }
 }

@@ -4,10 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.eventures.viewmodels.LoginViewModel
 
 @Composable
 fun ENavHost(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    loginViewModel: LoginViewModel
 ) {
 
     NavHost(
@@ -17,13 +19,23 @@ fun ENavHost(
 
         composable(NavRoutes.Home.route) {
             Home(
-                navHostController = navHostController
+                navHostController = navHostController,
+                loginViewModel = loginViewModel
             )
         }
         
         composable(NavRoutes.Loans.route) {
             Loans(
                 navHostController = navHostController
+            )
+        }
+
+        composable(NavRoutes.Loans.route + "/makePayment/{loanId}") {backStackEntry ->
+            val loanId = backStackEntry.arguments?.getString("loanId") ?: ""
+
+            LoanRepaymentScreen(
+                navHostController = navHostController,
+                loanId = loanId
             )
         }
 
